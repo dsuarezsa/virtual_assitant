@@ -1,0 +1,23 @@
+<script src="{{ url_for('app', path='/static/js/flowbite.min.js') }}"></script>
+<script src="{{ url_for('app', path='/static/js/main.js') }}"></script>
+
+<script type="text/javascript">
+    recorder("/audio", response => {
+        document.getElementById("record").style.display="";
+        document.getElementById("stop").style.display="none";
+        if (!response || response == null) {
+
+            console.log("No response");
+            return;
+        }
+        console.log("El texto fue: " + response.text)
+        document.getElementById("text").innerHTML = response.text;
+        if (typeof response.file !== "undefined") {
+
+            audioFile = response.file;
+            let audio = new Audio();
+            audio.setAttribute("src", "app/static/" + audioFile);
+            audio.play();
+        }
+    });
+</script>
